@@ -4,7 +4,7 @@
   "parameters": {
     "resourceGroupName": {
       "type": "string",
-      "defaultValue": "tsushoofficee5-logicapps-rg",
+      "defaultValue": "tsushoofficee5-reversi-rg",
       "metadata": {
         "_parameterType": "resourceGroup",
         "description": "このリソースのリソース グループの名前。追跡機能を向上させるため、同じリソース グループにリソースを配置することをお勧めします。"
