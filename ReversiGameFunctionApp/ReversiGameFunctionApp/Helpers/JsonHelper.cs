@@ -14,7 +14,8 @@ namespace ReversiGameFunctionApp.Domain.Behaviours
         {
             var options = new JsonSerializerOptions
             {
-                WriteIndented = true
+                WriteIndented = true,
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             };
 
             return JsonSerializer.Serialize(items, options);

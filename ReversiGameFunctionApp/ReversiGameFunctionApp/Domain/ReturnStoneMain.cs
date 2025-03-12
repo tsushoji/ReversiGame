@@ -17,7 +17,7 @@ namespace ReversiGameFunctionApp.Domain
         {
             JObject jsonObject = JObject.Parse(requestBody);
 
-            _setBoard = GetSetBoard(requestBody);
+            _setBoard = GetSetBoard(jsonObject);
             _reversiGameBoard = new ReversiGameBoard(jsonObject);
         }
 
@@ -38,9 +38,13 @@ namespace ReversiGameFunctionApp.Domain
         /// </summary>
         /// <param name="requestBody">リクエストボディ</param>
         /// <returns></returns>
-        private StoneModel GetSetBoard(string requestBody)
+        private StoneModel GetSetBoard(JObject jsonObject)
         {
-            JObject setBoardJsonObject = JObject.Parse(requestBody);
+            JObject? setBoardJsonObject = jsonObject["setBoard"] as JObject;
+            if (setBoardJsonObject == null)
+            {
+                throw new ArgumentException("The 'setBoard' key is missing or is null.");
+            }
             var setBoardJson = JObject.Parse(setBoardJsonObject.ToString());
 
             return new FromJsonToModelConverter().ConvertToBoardModel(setBoardJson);

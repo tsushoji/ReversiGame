@@ -52,7 +52,11 @@ namespace ReversiGameFunctionApp.Models
             _boad[updateStoneIndex] = updateStone;
         }
 
-        public List<StoneModel> GetBoard(int row, int col)
+        /// <summary>
+        /// 盤面を取得
+        /// </summary>
+        /// <returns>盤面</returns>
+        public List<StoneModel> GetBoard()
         {
             return _boad;
         }

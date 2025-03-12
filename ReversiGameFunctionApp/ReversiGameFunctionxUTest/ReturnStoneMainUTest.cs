@@ -167,7 +167,7 @@ namespace ReversiGameFunctionxUTest
 
             // Assert
             // 空白文字列を置換して、アサート
-            Assert.Equal(StringHelper.RemoveBlank(goalAfterBoardJson_1), StringHelper.RemoveBlank(targetAfterBoardJson_1));
+            Assert.Equal(StringHelper.RemoveBlankAndNewLine(goalAfterBoardJson_1), StringHelper.RemoveBlankAndNewLine(targetAfterBoardJson_1));
         }
     }
 }

@@ -33,16 +33,9 @@ namespace ReversiGameFunctionApp.Domain
         /// <returns>反転した石の数(=1-6)、またはエラーコード(<0)</returns>
         private int ScanDisc(int status, int startRow, int startColumn, int directionRow, int directionColumn)
         {
-            if (_board.GetStoneStatus(startRow, startColumn) != 0)
-            {
-                // Error1:置く場所にすでに石が置かれている
-                return -1;
-            }
-
-
-            if ((directionRow == 1 && startRow >= 6) ||
+            if ((directionRow == 1 && startRow >= 8) ||
                 (directionRow == -1 && startRow <= 1) ||
-                (directionColumn == 1 && startColumn >= 6) ||
+                (directionColumn == 1 && startColumn >= 8) ||
                 (directionColumn == -1 && startColumn <= 1))
             {
                 // Error2:ここより先に反転する石はない
@@ -69,7 +62,7 @@ namespace ReversiGameFunctionApp.Domain
 
 
             // 右に一つずつズレつつ、置いた石の色と同じ色の石を探す。
-            for (int i = 1; i <= 6; i += 1)
+            for (int i = 1; i <= 7; i += 1)
             {
                 if ((directionRow == 1 && startRow + i * directionRow > 8) ||
                     (directionRow == -1 && startRow + i * directionRow < 1) ||
@@ -112,11 +105,11 @@ namespace ReversiGameFunctionApp.Domain
         /// <param name="replaceCount">反転させる石の数</param>
         private void ReplaceDisc(int status, int startRow, int startColumn, int directionRow, int directionColumn, int replaceCount)
         {
-            for (int i = 1; i <= replaceCount; i += 1)
+            // 置いた碁石から反転できる石に隣り合った反対の碁石からみて、置いた碁石方向に1ずらした碁石までひっくり返す
+            for (int i = 1; i < replaceCount; i += 1)
             {
                 _board.SetStoneStatus(startRow + i * directionRow, startColumn + i * directionColumn, status);
             }
-
         }
 
         /// <summary>
@@ -131,6 +124,7 @@ namespace ReversiGameFunctionApp.Domain
         private int ReplaceOneDirection(int status, int startRow, int startColumn, int directionRow, int directionColumn)
         {
             // 反転できる石があるかを確認する
+            // 置いた碁石から反転できる石に隣り合った反対の碁石が移動させた距離を返す
             var replaceCount = ScanDisc(status, startRow, startColumn, directionRow, directionColumn);
 
             //  反転できる石があった場合は、石を反転する
@@ -155,19 +149,21 @@ namespace ReversiGameFunctionApp.Domain
         /// <returns>true:成功 / false:失敗</returns>
         public bool PutStone(int row, int col, int status)
         {
+            // 置いた碁石を盤面に反映
+            _board.SetStoneStatus(row, col, status);
 
-            var startRow = row - 1;
-            var startColumn = col - 1;
+            var startRow = row;
+            var startColumn = col;
 
             var totalcount = 0;
-            totalcount += ReplaceOneDirection(status, startRow, startColumn, 0, 1);    // 右
-            totalcount += ReplaceOneDirection(status, startRow, startColumn, 1, 1);    // 右下
-            totalcount += ReplaceOneDirection(status, startRow, startColumn, 1, 0);    // 下
-            totalcount += ReplaceOneDirection(status, startRow, startColumn, 1, -1);   // 左下
-            totalcount += ReplaceOneDirection(status, startRow, startColumn, 0, -1);   // 左
-            totalcount += ReplaceOneDirection(status, startRow, startColumn, -1, -1);  // 左上
-            totalcount += ReplaceOneDirection(status, startRow, startColumn, -1, 0);   // 上
-            totalcount += ReplaceOneDirection(status, startRow, startColumn, -1, 1);   // 右上
+            totalcount += ReplaceOneDirection(status, startRow, startColumn, 0, 1) - 1;    // 右
+            totalcount += ReplaceOneDirection(status, startRow, startColumn, 1, 1) - 1;    // 右下
+            totalcount += ReplaceOneDirection(status, startRow, startColumn, 1, 0) - 1;    // 下
+            totalcount += ReplaceOneDirection(status, startRow, startColumn, 1, -1) - 1;   // 左下
+            totalcount += ReplaceOneDirection(status, startRow, startColumn, 0, -1) - 1;   // 左
+            totalcount += ReplaceOneDirection(status, startRow, startColumn, -1, -1) - 1;  // 左上
+            totalcount += ReplaceOneDirection(status, startRow, startColumn, -1, 0) - 1;   // 上
+            totalcount += ReplaceOneDirection(status, startRow, startColumn, -1, 1) - 1;   // 右上
 
             if (totalcount > 0)
             {
@@ -189,23 +185,7 @@ namespace ReversiGameFunctionApp.Domain
         /// <returns>盤面</returns>
         public List<StoneModel> GetBoard()
         {
-            var list = new List<StoneModel>();
-
-            for (int row = 1; row <= 8; row++)
-            {
-                for (int col = 1; col <= 8; col++)
-                {
-                    var cell = new StoneModel();
-
-                    cell.Row = row;
-                    cell.Col = col;
-                    cell.Status = _board.GetStoneStatus(row - 1, col - 1);
-
-                    list.Add(cell);
-                }
-            }
-
-            return list;
+            return _board.GetBoard();
         }
     }
 }
