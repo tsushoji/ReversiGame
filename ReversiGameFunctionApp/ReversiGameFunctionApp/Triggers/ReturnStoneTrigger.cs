@@ -37,20 +37,24 @@ namespace ReversiGameFunctionApp.Triggers
                 var setBoard = new FromJsonToModelConverter().ConvertToBoardModel(setBoardJson);
 
                 // TODO: Ç–Ç¡Ç≠ÇËï‘Ç∑èàóùí«â¡
-                var turnedBoard = new List<BoardModel>();
-                turnedBoard.Add(new BoardModel
-                {
-                    Row = 1,
-                    Col = 1,
-                    Status = 0,
-                });
+                //var turnedBoard = new List<BoardModel>();
+                //turnedBoard.Add(new BoardModel
+                //{
+                //    Row = 1,
+                //    Col = 1,
+                //    Status = 0,
+                //});
 
-                turnedBoard.Add(new BoardModel
-                {
-                    Row = 1,
-                    Col = 2,
-                    Status = 1,
-                });
+                //turnedBoard.Add(new BoardModel
+                //{
+                //    Row = 1,
+                //    Col = 2,
+                //    Status = 1,
+                //});
+
+                var gameBoard = new ReversiGameBoard(boardList);
+                var result = gameBoard.PutStone(setBoard.Row, setBoard.Col, setBoard.Status);
+                var turnedBoard = gameBoard.GetBoard();
 
                 turnedBoardJson = new FromModelToJsonConverter().Convert<BoardModel>(turnedBoard);
             }
