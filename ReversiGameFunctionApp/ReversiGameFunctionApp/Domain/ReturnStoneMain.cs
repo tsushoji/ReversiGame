@@ -4,7 +4,7 @@ using ReversiGameFunctionApp.Models;
 
 namespace ReversiGameFunctionApp.Domain
 {
-    internal class ReturnStoneMain
+    public class ReturnStoneMain
     {
         private StoneModel _setBoard;
         private ReversiGameBoard _reversiGameBoard;
