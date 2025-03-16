@@ -2,21 +2,28 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
-using ReversiGameFunctionApp.Behaviours;
-using ReversiGameFunctionApp.Models;
+using ReversiGameFunctionApp.Domain;
 
 namespace ReversiGameFunctionApp.Triggers
 {
-    public class ReturnStoneTrigger
+    internal class ReturnStoneTrigger
     {
         private readonly ILogger<ReturnStoneTrigger> _logger;
 
+        /// <summary>
+        /// New
+        /// </summary>
+        /// <param name="logger"></param>
         public ReturnStoneTrigger(ILogger<ReturnStoneTrigger> logger)
         {
             _logger = logger;
         }
 
+        /// <summary>
+        /// 実行処理
+        /// </summary>
+        /// <param name="req">リクエスト</param>
+        /// <returns>レスポンス</returns>
         [Function("ReturnStoneFunction")]
         public async Task<IActionResult> RunAsync([HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequest req)
         {
@@ -28,31 +35,7 @@ namespace ReversiGameFunctionApp.Triggers
 
                 var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
 
-                var jsonObject = JObject.Parse(requestBody);
-
-                var preBoardJsonArray = (JArray)jsonObject["board"];
-                var setBoardJson = JObject.Parse(jsonObject["setBoard"].ToString());
-
-                var boardList = new FromJsonToModelConverter().ConvertToBoardModelList(preBoardJsonArray);
-                var setBoard = new FromJsonToModelConverter().ConvertToBoardModel(setBoardJson);
-
-                // TODO: ひっくり返す処理追加
-                var turnedBoard = new List<BoardModel>();
-                turnedBoard.Add(new BoardModel
-                {
-                    Row = 1,
-                    Col = 1,
-                    Status = 0,
-                });
-
-                turnedBoard.Add(new BoardModel
-                {
-                    Row = 1,
-                    Col = 2,
-                    Status = 1,
-                });
-
-                turnedBoardJson = new FromModelToJsonConverter().Convert<BoardModel>(turnedBoard);
+                turnedBoardJson = new ReturnStoneMain(requestBody).DoProcess();
             }
             catch (Exception ex)
             {
