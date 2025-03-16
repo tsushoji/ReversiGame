@@ -12,7 +12,7 @@ namespace ReversiGameFunctionApp.Domain
         /// <summary>
         /// New
         /// </summary>
-        /// <param name="requestBody">ƒŠƒNƒGƒXƒgƒ{ƒfƒB</param>
+        /// <param name="requestBody">New</param>
         public ReturnStoneMain(string requestBody)
         {
             JObject jsonObject = JObject.Parse(requestBody);
@@ -22,9 +22,9 @@ namespace ReversiGameFunctionApp.Domain
         }
 
         /// <summary>
-        /// ƒƒCƒ“ˆ—
+        /// ãƒ¡ã‚¤ãƒ³å‡¦ç†
         /// </summary>
-        /// <returns>‚Ğ‚Á‚­‚è•Ô‚µ‚½Œã‚Ì”Õ–Ê</returns>
+        /// <returns>ã²ã£ãã‚Šè¿”ã—ãŸå¾Œã®ç›¤é¢</returns>
         public string DoProcess()
         {
             var result = _reversiGameBoard.PutStone(_setBoard.Row, _setBoard.Col, _setBoard.Status);
@@ -34,9 +34,9 @@ namespace ReversiGameFunctionApp.Domain
         }
 
         /// <summary>
-        /// ƒZƒbƒg‚µ‚½”Õ–Ê‚ğæ“¾
+        /// ç½®ã„ãŸç¢çŸ³ã‚’å–å¾—
         /// </summary>
-        /// <param name="requestBody">ƒŠƒNƒGƒXƒgƒ{ƒfƒB</param>
+        /// <param name="requestBody">å—ã‘å–ã‚‹Jsonã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ</param>
         /// <returns></returns>
         private StoneModel GetSetBoard(JObject jsonObject)
         {
