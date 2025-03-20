@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ReversiGameFunctionApp.Domain.Behaviours;
 using ReversiGameFunctionApp.Models;
@@ -17,7 +18,14 @@ namespace ReversiGameFunctionApp.Domain
         {
             JObject jsonObject = JObject.Parse(requestBody);
 
-            _setBoard = GetSetBoard(jsonObject);
+            var setBoard = GetSetBoard(jsonObject);
+
+            if (setBoard == null)
+            {
+                throw new ArgumentException("The 'setBoard' key is missing or is null.");
+            }
+            _setBoard = setBoard;
+
             _reversiGameBoard = new ReversiGameBoard(jsonObject);
         }
 
@@ -37,17 +45,16 @@ namespace ReversiGameFunctionApp.Domain
         /// 置いた碁石を取得
         /// </summary>
         /// <param name="requestBody">受け取るJsonオブジェクト</param>
-        /// <returns></returns>
-        private StoneModel GetSetBoard(JObject jsonObject)
+        /// <returns>置いた碁石</returns>
+        private StoneModel? GetSetBoard(JObject jsonObject)
         {
             JObject? setBoardJsonObject = jsonObject["setBoard"] as JObject;
             if (setBoardJsonObject == null)
             {
                 throw new ArgumentException("The 'setBoard' key is missing or is null.");
             }
-            var setBoardJson = JObject.Parse(setBoardJsonObject.ToString());
 
-            return new FromJsonToModelConverter().ConvertToBoardModel(setBoardJson);
+            return JsonConvert.DeserializeObject<StoneModel>(setBoardJsonObject.ToString());
         }
     }
 }
