@@ -55,11 +55,12 @@ namespace ReversiGameFunctionApp.Domain
             _reversiGameBoard.PutStone(_setBoard.Row, _setBoard.Col, _setBoard.Status);
             var turnedBoard = _reversiGameBoard.GetBoard();
 
+            // Jsond返すときは、キー名をキャメルケースの命名規約で返す。
             return JsonSerializer.Serialize(
                 _interfaceConverter.ConvertToListFromArray(turnedBoard), 
                 new JsonSerializerOptions { 
                     WriteIndented = true,
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase // キー名がキャメルケース
                 });
         }
     }
