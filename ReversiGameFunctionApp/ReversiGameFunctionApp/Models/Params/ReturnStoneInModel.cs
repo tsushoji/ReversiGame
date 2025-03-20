@@ -5,11 +5,11 @@
         /// <summary>
         /// 石を置く前の盤面
         /// </summary>
-        public List<StoneModel>? board { get; set; }
+        public List<StoneModel>? Board { get; set; }
 
         /// <summary>
         /// 置く石の位置及び石の色
         /// </summary>
-        public StoneModel? setBoard { get; set; }
+        public StoneModel? SetBoard { get; set; }
     }
 }

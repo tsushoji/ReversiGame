@@ -32,17 +32,17 @@ namespace ReversiGameFunctionApp.Domain
             {
                 throw new ArgumentException("パラメータが想定通り渡されておりません。");
             }
-            if (arg.setBoard == null)
+            if (arg.SetBoard == null)
             {
                 throw new ArgumentException("パラメータ'setBoard'キーが想定通り渡されておりません。");
             }
-            if (arg.board == null)
+            if (arg.Board == null)
             {
                 throw new ArgumentException("パラメータ'board'キーが想定通り渡されておりません。");
             }
 
-            _setBoard = arg.setBoard;
-            _reversiGameBoard = new ReversiGameBoard(_interfaceConverter.ConvertToArrayFromList(arg.board));
+            _setBoard = arg.SetBoard;
+            _reversiGameBoard = new ReversiGameBoard(_interfaceConverter.ConvertToArrayFromList(arg.Board));
         }
   
 
