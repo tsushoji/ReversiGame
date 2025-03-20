@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using ReversiGameFunctionApp.Models;
-
-namespace ReversiGameFunctionApp.Domain
+﻿namespace ReversiGameFunctionApp.Domain
 {
     /// <summary>
     /// 盤
@@ -11,15 +8,16 @@ namespace ReversiGameFunctionApp.Domain
         /// <summary>
         /// 盤面
         /// </summary>
-        private BoardModel _board;
+        private int[,] _board;
 
         /// <summary>
         /// New
         /// </summary>
-        /// <param name="jsonObject">jsonオブジェクト</param>
-        public ReversiGameBoard(JObject jsonObject)
+        /// <remarks>インデックスが1始まりの配列をセットする</remarks>
+        /// <param name="boardArray">盤面配列</param>
+        public ReversiGameBoard(int[,] boardArray)
         {
-            _board = new BoardModel(jsonObject);
+            _board = boardArray;
         }
 
         /// <summary>
@@ -43,14 +41,14 @@ namespace ReversiGameFunctionApp.Domain
             }
             
 
-            if (_board.GetStoneStatus(startRow + 1 * directionRow, startColumn + 1 * directionColumn) == 0)
+            if (_board[startRow + 1 * directionRow, startColumn + 1 * directionColumn] == 0)
             {
                 // Error3:隣に石が置かれていない
                 return -3;
             }
 
 
-            if (_board.GetStoneStatus(startRow + 1 * directionRow, startColumn + 1 * directionColumn) == status)
+            if (_board[startRow + 1 * directionRow, startColumn + 1 * directionColumn] == status)
             {
                 //Error4:隣の石が同じ色
                 return -4;
@@ -73,14 +71,14 @@ namespace ReversiGameFunctionApp.Domain
                     return -5;
                 }
 
-                if (_board.GetStoneStatus(startRow + i * directionRow, startColumn + i * directionColumn) == 0)
+                if (_board[startRow + i * directionRow, startColumn + i * directionColumn] == 0)
                 {
                     // Error6:置いた石と同じ色が見つからず、石の置かれていないところに来た
                     return -6;
                 }
 
 
-                if (_board.GetStoneStatus(startRow + i * directionRow, startColumn + i * directionColumn) == status)
+                if (_board[startRow + i * directionRow, startColumn + i * directionColumn] == status)
                 {
                     // 同じ色の石が見つかった。OK!
 
@@ -108,7 +106,7 @@ namespace ReversiGameFunctionApp.Domain
             // 置いた碁石から反転できる石に隣り合った反対の碁石からみて、置いた碁石方向に1ずらした碁石までひっくり返す
             for (int i = 1; i < replaceCount; i += 1)
             {
-                _board.SetStoneStatus(startRow + i * directionRow, startColumn + i * directionColumn, status);
+                _board[startRow + i * directionRow, startColumn + i * directionColumn] = status;
             }
         }
 
@@ -150,7 +148,7 @@ namespace ReversiGameFunctionApp.Domain
         public bool PutStone(int row, int col, int status)
         {
             // 置いた碁石を盤面に反映
-            _board.SetStoneStatus(row, col, status);
+            _board[row, col] = status;
 
             var startRow = row;
             var startColumn = col;
@@ -167,7 +165,7 @@ namespace ReversiGameFunctionApp.Domain
 
             if (totalcount > 0)
             {
-                _board.SetStoneStatus(startRow, startColumn, status);
+                _board[startRow, startColumn] = status;
                 return true;
             }
             else
@@ -183,9 +181,9 @@ namespace ReversiGameFunctionApp.Domain
         /// 現在の盤面を取得する
         /// </summary>
         /// <returns>盤面</returns>
-        public List<StoneModel> GetBoard()
+        public int[,] GetBoard()
         {
-            return _board.GetBoard();
+            return (int[,])_board.Clone();
         }
     }
 }
