@@ -27,15 +27,14 @@ namespace ReversiGameFunctionApp.Triggers
         [Function("ReturnStoneFunction")]
         public async Task<IActionResult> RunAsync([HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequest req)
         {
-            var turnedBoardJson = string.Empty;
-
             try
             {
                 _logger.LogInformation("C# HTTP trigger function processed a request.");
 
                 var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
 
-                turnedBoardJson = new ReturnStoneMain(requestBody).DoProcess();
+                // 200‚ð•Ô‚·
+                return new OkObjectResult(new ReturnStoneMain(requestBody).DoProcess());
             }
             catch (Exception ex)
             {
@@ -46,9 +45,6 @@ namespace ReversiGameFunctionApp.Triggers
                     StatusCode = StatusCodes.Status500InternalServerError
                 };
             }
-
-            // 200‚ð•Ô‚·
-            return new OkObjectResult(turnedBoardJson);
         }
     }
 }

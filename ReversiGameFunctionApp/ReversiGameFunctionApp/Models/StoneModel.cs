@@ -1,6 +1,6 @@
 ﻿namespace ReversiGameFunctionApp.Models
 {
-    internal class StoneModel
+    public class StoneModel
     {
         /// <summary>
         /// New
