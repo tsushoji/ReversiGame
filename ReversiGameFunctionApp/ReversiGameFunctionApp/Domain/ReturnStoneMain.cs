@@ -50,18 +50,13 @@ namespace ReversiGameFunctionApp.Domain
         /// メイン処理
         /// </summary>
         /// <returns>ひっくり返した後の盤面</returns>
-        public string DoProcess()
+        public List<StoneModel> DoProcess()
         {
             _reversiGameBoard.PutStone(_setBoard.Row, _setBoard.Col, _setBoard.Status);
             var turnedBoard = _reversiGameBoard.GetBoard();
 
             // Jsond返すときは、キー名をキャメルケースの命名規約で返す。
-            return JsonSerializer.Serialize(
-                _interfaceConverter.ConvertToListFromArray(turnedBoard), 
-                new JsonSerializerOptions { 
-                    WriteIndented = true,
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase // キー名がキャメルケース
-                });
+            return _interfaceConverter.ConvertToListFromArray(turnedBoard);
         }
     }
 }

@@ -163,7 +163,8 @@ namespace ReversiGameFunctionxUTest
             ]";
 
             // Act
-            var targetAfterBoardJson_1 = new ReturnStoneMain(requestBodyJson_1).DoProcess();
+            var targetAfterBoardList_1 = new ReturnStoneMain(requestBodyJson_1).DoProcess();
+            var targetAfterBoardJson_1 = JsonHelper.ConvertFromListWIthCamelCase(targetAfterBoardList_1);
 
             // Assert
             // 空白文字列を置換して、アサート
@@ -324,7 +325,8 @@ namespace ReversiGameFunctionxUTest
             ]";
 
             // Act
-            var targetAfterBoardJson_2 = new ReturnStoneMain(requestBodyJson_2).DoProcess();
+            var targetAfterBoardList_2 = new ReturnStoneMain(requestBodyJson_2).DoProcess();
+            var targetAfterBoardJson_2 = JsonHelper.ConvertFromListWIthCamelCase(targetAfterBoardList_2);
 
             // Assert
             // 空白文字列を置換して、アサート
