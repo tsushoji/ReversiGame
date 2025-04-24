@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReversiGameFunctionApp", "ReversiGameFunctionApp\ReversiGameFunctionApp.csproj", "{ED4C97F2-F573-48F3-902B-4EB78209F234}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReversiGameFunctionApp", "ReversiGameFunctionApp\ReversiGameFunctionApp.csproj", "{ED4C97F2-F573-48F3-902B-4EB78209F234}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReversiGameFunctionxUTest", "ReversiGameFunctionxUTest\ReversiGameFunctionxUTest.csproj", "{FE98EEC8-23D7-447A-A2F5-4A2383C2F568}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReversiGameFunctionxUTest", "ReversiGameFunctionxUTest\ReversiGameFunctionxUTest.csproj", "{FE98EEC8-23D7-447A-A2F5-4A2383C2F568}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReversiGameInProcessFunctionApp", "ReversiGameInProcessFunctionApp\ReversiGameInProcessFunctionApp.csproj", "{77E0C91F-03BC-4285-B8C1-A1B89340DE44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +23,15 @@ Global
 		{FE98EEC8-23D7-447A-A2F5-4A2383C2F568}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE98EEC8-23D7-447A-A2F5-4A2383C2F568}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE98EEC8-23D7-447A-A2F5-4A2383C2F568}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77E0C91F-03BC-4285-B8C1-A1B89340DE44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77E0C91F-03BC-4285-B8C1-A1B89340DE44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77E0C91F-03BC-4285-B8C1-A1B89340DE44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77E0C91F-03BC-4285-B8C1-A1B89340DE44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {919E338E-37B7-4F81-990F-D9756DA6BC86}
 	EndGlobalSection
 EndGlobal
