@@ -7,7 +7,7 @@ using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using ReversiGameFunctionApp.Domain;
-using ReversiGameFunctionApp.Models;
+using ReversiGameInProcessFunctionApp.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -37,8 +37,7 @@ namespace ReversiGameFunctionApp.Triggers
         [FunctionName("ReturnStoneOpenAPIFunction")]
         [OpenApiOperation(operationId: "Run", tags: new[] { "name" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        [OpenApiParameter(name: "name", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "The **Name** parameter")]
-        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(List<StoneModel>), Description = "The OK response")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(List<OutStoneModel>), Description = "The OK response")]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.InternalServerError, contentType: "application/json", bodyType: typeof(string), Description = "Internal Server Error")]
         public async Task<IActionResult> RunAsync([HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequest req)
         {
@@ -49,6 +48,7 @@ namespace ReversiGameFunctionApp.Triggers
                 var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
 
                 // 200を返す
+                // Power Appsではjsonにあたるオブジェクト型は対応していないため、配列（リスト）型で渡す
                 return new OkObjectResult(new ReturnStoneMain(requestBody).DoProcess());
             }
             catch (Exception ex)

@@ -154,14 +154,14 @@
             var startColumn = col;
 
             var totalcount = 0;
-            totalcount += ReplaceOneDirection(status, startRow, startColumn, 0, 1) - 1;    // 右
-            totalcount += ReplaceOneDirection(status, startRow, startColumn, 1, 1) - 1;    // 右下
-            totalcount += ReplaceOneDirection(status, startRow, startColumn, 1, 0) - 1;    // 下
-            totalcount += ReplaceOneDirection(status, startRow, startColumn, 1, -1) - 1;   // 左下
-            totalcount += ReplaceOneDirection(status, startRow, startColumn, 0, -1) - 1;   // 左
-            totalcount += ReplaceOneDirection(status, startRow, startColumn, -1, -1) - 1;  // 左上
-            totalcount += ReplaceOneDirection(status, startRow, startColumn, -1, 0) - 1;   // 上
-            totalcount += ReplaceOneDirection(status, startRow, startColumn, -1, 1) - 1;   // 右上
+            totalcount += ReplaceOneDirection(status, startRow, startColumn, 0, 1);    // 右
+            totalcount += ReplaceOneDirection(status, startRow, startColumn, 1, 1);    // 右下
+            totalcount += ReplaceOneDirection(status, startRow, startColumn, 1, 0);    // 下
+            totalcount += ReplaceOneDirection(status, startRow, startColumn, 1, -1);   // 左下
+            totalcount += ReplaceOneDirection(status, startRow, startColumn, 0, -1);   // 左
+            totalcount += ReplaceOneDirection(status, startRow, startColumn, -1, -1);  // 左上
+            totalcount += ReplaceOneDirection(status, startRow, startColumn, -1, 0);   // 上
+            totalcount += ReplaceOneDirection(status, startRow, startColumn, -1, 1);   // 右上
 
             if (totalcount > 0)
             {

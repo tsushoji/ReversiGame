@@ -1,7 +1,8 @@
 ﻿using ReversiGameFunctionApp.Models;
+using ReversiGameInProcessFunctionApp.Models;
 using System.Collections.Generic;
 
-namespace ReversiGameFunctionApp.Domain.Behaviours 
+namespace ReversiGameFunctionApp.Domain.Behaviours
 {
     internal class BoardListAndArrayConverter
     {
@@ -32,23 +33,24 @@ namespace ReversiGameFunctionApp.Domain.Behaviours
         }
 
         /// <summary>
-        /// Jsonオブジェクトから碁石モデルへ変換
+        /// 配列からアウトプット碁石モデルリストへ変換
         /// </summary>
         /// <param name="board">盤面配列</param>
-        /// <returns>json配列</returns>
-        public List<StoneModel> ConvertToListFromArray(int[,] boardArray)
+        /// <param name="board">碁石を置くことができたかどうか</param>
+        /// <returns>アウトプット碁石モデルリスト</returns>
+        public List<OutStoneModel> ConvertToOutputListFromArray(int[,] boardArray, bool isPutStone)
         {
-            var boardList = new List<StoneModel>();
+            var outBoardList = new List<OutStoneModel>();
 
             for (int i = 1; i < boardArray.GetLength(0); i++)
             {
                 for (int j = 1; j < boardArray.GetLength(1); j++)
                 {
-                    boardList.Add(new StoneModel { Row = i, Col = j, Status = boardArray[i, j] });
+                    outBoardList.Add(new OutStoneModel { Row = i, Col = j, Status = boardArray[i, j], IsPutStone = isPutStone });
                 }
             }
 
-            return boardList;
+            return outBoardList;
         }
     }
 }
