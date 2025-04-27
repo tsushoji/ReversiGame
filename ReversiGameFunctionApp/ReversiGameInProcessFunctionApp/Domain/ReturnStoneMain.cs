@@ -1,6 +1,7 @@
 using ReversiGameFunctionApp.Domain.Behaviours;
 using ReversiGameFunctionApp.Models;
 using ReversiGameFunctionApp.Models.Params;
+using ReversiGameInProcessFunctionApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
@@ -52,13 +53,13 @@ namespace ReversiGameFunctionApp.Domain
         /// メイン処理
         /// </summary>
         /// <returns>ひっくり返した後の盤面</returns>
-        public List<StoneModel> DoProcess()
+        public List<OutStoneModel> DoProcess()
         {
-            _reversiGameBoard.PutStone(_setBoard.Row, _setBoard.Col, _setBoard.Status);
+            var isPutStone = _reversiGameBoard.PutStone(_setBoard.Row, _setBoard.Col, _setBoard.Status);
             var turnedBoard = _reversiGameBoard.GetBoard();
 
             // Jsond返すときは、キー名をキャメルケースの命名規約で返す。
-            return _interfaceConverter.ConvertToListFromArray(turnedBoard);
+            return _interfaceConverter.ConvertToOutputListFromArray(turnedBoard, isPutStone);
         }
     }
 }
